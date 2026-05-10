@@ -1,0 +1,42 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Bad Bunny World Tour",
+      "category": "Concierto",
+      "location": "Lima, Perú",
+      "date": "2026-07-15",
+      "time": "8:00 PM",
+      "price": 250,
+      "capacity": 5000,
+      "sold": 3200,
+      "status": "ACTIVE",
+      "image": "https://picsum.photos/400/250?1"
+    },
+    {
+      "id": "2",
+      "title": "Tech Summit 2026",
+      "category": "Tecnología",
+      "location": "Arequipa, Perú",
+      "date": "2026-09-10",
+      "time": "10:00 AM",
+      "price": 120,
+      "capacity": 1200,
+      "sold": 800,
+      "status": "ACTIVE",
+      "image": "https://picsum.photos/400/250?2"
+    },
+    {
+      "id": "xkS317AwmxI",
+      "title": "",
+      "category": "",
+      "location": "",
+      "date": "",
+      "price": 0,
+      "status": "ACTIVE",
+      "sold": 0,
+      "image": "https://picsum.photos/400/250"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

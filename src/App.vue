@@ -1,8 +1,12 @@
 <script setup>
-import Layout from "./shared/presentation/components/layout.vue";
 </script>
 
 <template>
-  <layout></layout>
-
+  <router-view></router-view>
 </template>
+
+<style>
+:root, body, * {
+  font-family: 'Aleo', serif !important;
+}
+</style>
