@@ -7,8 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://136.113.62.112',
+        target: 'https://goticket-api.ddns.net',
         changeOrigin: true,
+        secure: true,
       }
     }
   }
