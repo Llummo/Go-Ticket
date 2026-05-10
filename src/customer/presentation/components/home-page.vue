@@ -22,7 +22,7 @@ const loadCatalog = async () => {
   try {
     const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
     const res = await axios.get(`${baseApi}/events`);
-    events.value = res.data;
+    events.value = Array.isArray(res.data) ? res.data : [];
   } catch (error) {
     console.error("Error al cargar el catálogo:", error);
   } finally {
