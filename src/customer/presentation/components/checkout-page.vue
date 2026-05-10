@@ -33,7 +33,7 @@ onMounted(() => {
 
   if (!savedSeats || !savedEvent) {
     alert("No hay una compra en proceso.");
-    router.push('/catalog');
+    router.push('/');
     return;
   }
 
@@ -75,7 +75,7 @@ const procesarCompra = async () => {
 
     alert(`¡Compra Exitosa! Código de operación: ${opCode}`);
 
-    router.push('/catalog');
+    router.push('/');
 
   } catch (error) {
     console.error("Error al procesar el pago:", error);
