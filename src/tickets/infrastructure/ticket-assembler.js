@@ -8,7 +8,7 @@ export class TicketAssembler {
 
     static toEntityFromResponse(response) {
         const toEntity = (ticket) => this.toEntityFromResource(ticket);
-        return response.data.datos.map(toEntity);
+        return response.data.map(toEntity);
     }
 
 }
