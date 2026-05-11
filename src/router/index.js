@@ -10,14 +10,14 @@ import TicketItem from "../tickets/presentation/components/ticket-item.vue";
 import SalesPage from "../sales/presentation/components/sales-page.vue";
 
 // Vistas Cliente
-import HomePage from "../customer/presentation/components/home-page.vue";
+import CatalogPage from "../customer/presentation/components/catalog-page.vue";
 import SeatMapPage from '../customer/presentation/components/seat-map.vue';
 import CheckoutPage from '../customer/presentation/components/checkout-page.vue'; // <-- IMPORTACIÓN RECUPERADA
 import MyTicketsPage from '../customer/presentation/components/my-tickets.vue';
 
 const routes = [
     // RUTAS PÚBLICAS
-    { path: '/', component: HomePage },         // Cartelera abierta a todos
+    { path: '/', component: CatalogPage },         // Cartelera abierta a todos
     { path: '/login', component: LoginForm },   // Vista de Login
 
     // RUTAS DEL CLIENTE (Protegidas)
