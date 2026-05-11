@@ -33,6 +33,9 @@ const goLogin = () => {
 
         <nav class="nav-links">
           <button @click="router.push('/')" class="nav-btn">
+            <i class="pi pi-home"></i> Home
+          </button>
+          <button @click="router.push('/catalog')" class="nav-btn">
             <i class="pi pi-compass"></i> Cartelera
           </button>
           <button v-if="isLoggedIn" @click="router.push('/tickets')" class="nav-btn">
