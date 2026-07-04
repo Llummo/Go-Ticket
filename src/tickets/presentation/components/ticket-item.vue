@@ -5,7 +5,6 @@ import axios from 'axios';
 import AdminLayout from "../../../shared/presentation/components/admin-layout.vue";
 import { TicketApi } from "../../infrastructure/ticket-api.js";
 
-// Componentes PrimeVue
 import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -19,7 +18,7 @@ const router = useRouter();
 const tickets = ref([]);
 const loading = ref(true);
 const eventTitle = ref('Cargando...');
-const viewMode = ref('map'); // 'list' o 'map'
+const viewMode = ref('map');
 
 const eventId = route.params.id;
 
@@ -27,11 +26,9 @@ const loadData = async () => {
   try {
     loading.value = true;
     if (eventId) {
-      // 1. Cargar tickets
       const resTickets = await api.getEventTickets(eventId);
       tickets.value = resTickets.data;
 
-      // 2. Cargar el nombre del evento (buscándolo en la lista general)
       const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
       const resEvents = await axios.get(`${baseApi}/events`);
       const currentEvent = resEvents.data.find(e => e.id_event == eventId);
@@ -53,7 +50,6 @@ const stats = computed(() => {
   const sold = tickets.value.filter(t => t.status === 'SOLD').length;
   const available = tickets.value.filter(t => t.status === 'AVAILABLE').length;
 
-  // Sumamos el precio solo de los tickets vendidos
   const revenue = tickets.value
       .filter(t => t.status === 'SOLD')
       .reduce((sum, t) => sum + parseFloat(t.price), 0);
@@ -68,7 +64,6 @@ const seatMap = computed(() => {
     map[t.row_str].push(t);
   });
 
-  // Ordenar asientos por número dentro de cada fila
   for (let row in map) {
     map[row].sort((a, b) => a.seat_number - b.seat_number);
   }

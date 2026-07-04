@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import AdminLayout from "../../../shared/presentation/components/admin-layout.vue";
 
-// Componentes PrimeVue
 import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -21,7 +20,6 @@ const loadSales = async () => {
     const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
     const res = await axios.get(`${baseApi}/admin/transactions`);
 
-    // Formatear fechas para que se vean bien en la tabla
     transactions.value = res.data.map(tx => ({
       ...tx,
       formatted_date: new Date(tx.action_date).toLocaleString(),

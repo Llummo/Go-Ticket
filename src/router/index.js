@@ -15,6 +15,7 @@ import SeatMapPage from '../customer/presentation/components/seat-map.vue';
 import CheckoutPage from '../customer/presentation/components/checkout-page.vue'; 
 import MyTicketsPage from '../customer/presentation/components/my-tickets.vue';
 import UserProfile from '../customer/presentation/components/user-profile.vue';
+import EventDetail from '../customer/presentation/components/event-detail.vue'; // <-- NUEVO IMPORT
 
 const routes = [
     { path: '/', component: HomePage },         
@@ -23,6 +24,7 @@ const routes = [
     { path: '/tickets/buy/:id', component: SeatMapPage, meta: { role: 'cliente' }},
     { path: '/checkout', component: CheckoutPage, meta: { role: 'cliente' }}, 
     { path: '/profile/:id', component: UserProfile, meta: { role: 'cliente' }},
+    { path: '/event/:id', component: EventDetail, meta: { role: 'cliente' }}, // <-- NUEVA RUTA
 
     { path: '/admin', component: AdminPage, meta: { role: 'admin' }},
     { path: '/events', component: EventPage, meta: { role: 'admin' }},

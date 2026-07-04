@@ -7,7 +7,6 @@ const router = useRouter();
 const isLoggedIn = ref(false);
 const userId = ref(null);
 
-// Variables de Búsqueda
 const searchQuery = ref('');
 const searchResults = ref([]);
 
