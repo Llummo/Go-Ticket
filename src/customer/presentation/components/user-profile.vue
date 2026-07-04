@@ -84,7 +84,7 @@ const saveProfile = async () => {
       const formData = new FormData();
       formData.append('image', avatarFile.value);
       const uploadRes = await axios.post(`${baseApi}/upload`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      finalAvatarUrl = `http://localhost:3000${uploadRes.data.url}`;
+      finalImageUrl = uploadRes.data.url;
     }
 
     const res = await axios.put(`${baseApi}/users/${profile.value._id}/profile`, {
