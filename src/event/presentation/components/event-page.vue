@@ -34,7 +34,7 @@ const saveEventWithImage = async () => {
       const formData = new FormData();
       formData.append('image', imageFile.value);
       const uploadRes = await axios.post(`${baseApi}/upload`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-      finalImageUrl = `http://localhost:3000${uploadRes.data.url}`;
+      finalImageUrl = uploadRes.data.url;
     }
 
     await axios.post(`${baseApi}/admin/events-with-tickets`, {
