@@ -11,6 +11,7 @@ import SalesPage from "../sales/presentation/components/sales-page.vue";
 
 // Vistas Cliente
 import HomePage from "../customer/presentation/components/home-page.vue";
+import CatalogPage from "../customer/presentation/components/catalog-page.vue";
 import SeatMapPage from '../customer/presentation/components/seat-map.vue';
 import CheckoutPage from '../customer/presentation/components/checkout-page.vue'; 
 import MyTicketsPage from '../customer/presentation/components/my-tickets.vue';
@@ -18,8 +19,12 @@ import UserProfile from '../customer/presentation/components/user-profile.vue';
 import EventDetail from '../customer/presentation/components/event-detail.vue'; // <-- NUEVO IMPORT
 
 const routes = [
-    { path: '/', component: HomePage },         
-    { path: '/login', component: LoginForm },   
+    // RUTAS PÚBLICAS
+    { path: '/', component: HomePage },         // Home abierto a todos
+    { path: '/catalog', component: CatalogPage }, // Cartelera abierta a todos
+    { path: '/login', component: LoginForm },   // Vista de Login
+
+    // RUTAS DEL CLIENTE (Protegidas)
     { path: '/tickets', component: MyTicketsPage, meta: { role: 'cliente' }},
     { path: '/tickets/buy/:id', component: SeatMapPage, meta: { role: 'cliente' }},
     { path: '/checkout', component: CheckoutPage, meta: { role: 'cliente' }}, 

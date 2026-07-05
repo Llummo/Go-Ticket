@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"http://136.113.62.112/api/events\")",
+      "Bash(curl -s \"http://136.113.62.112/api/events/1/tickets\")",
+      "Bash(curl -s \"http://136.113.62.112/api/admin/transactions\")",
+      "Bash(curl -s \"http://136.113.62.112/api/customer/1/tickets\")"
+    ]
+  }
+}
