@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import ClientLayout from "../../../shared/presentation/components/client-layout.vue";
 
-// Componentes PrimeVue
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
@@ -12,12 +11,10 @@ import InputText from 'primevue/inputtext';
 const router = useRouter();
 const loading = ref(false);
 
-// Datos de la compra
 const eventDetails = ref({});
 const selectedSeats = ref([]);
 const totalAmount = ref(0);
 
-// Formulario de Pago (Simulado)
 const paymentData = ref({
   cardNumber: '',
   cardName: '',
@@ -26,7 +23,6 @@ const paymentData = ref({
 });
 
 onMounted(() => {
-  // Recuperar los datos del carrito desde la memoria temporal
   const savedSeats = sessionStorage.getItem('checkout_seats');
   const savedEvent = sessionStorage.getItem('checkout_event');
   const savedTotal = sessionStorage.getItem('checkout_total');
@@ -52,7 +48,6 @@ const procesarCompra = async () => {
   try {
     const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
 
-    // Código de operación simulado del banco
     const opCode = 'TX-' + Math.random().toString(36).substring(2, 10).toUpperCase();
 
     const promesasDeCompra = selectedSeats.value.map(seat => {
@@ -65,10 +60,8 @@ const procesarCompra = async () => {
       });
     });
 
-    // Ejecutamos todas las compras en paralelo
     await Promise.all(promesasDeCompra);
 
-    // Limpiamos el carrito
     sessionStorage.removeItem('checkout_seats');
     sessionStorage.removeItem('checkout_event');
     sessionStorage.removeItem('checkout_total');

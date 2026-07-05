@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import ClientLayout from "../../../shared/presentation/components/client-layout.vue";
 
-// Componentes PrimeVue
 import Button from 'primevue/button';
 import Tag from 'primevue/tag';
 
@@ -14,9 +13,10 @@ const loading = ref(true);
 
 const loadMyTickets = async () => {
   try {
-    const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
-    const customerId = 1;
+    const baseApi = import.meta.env.VITE_GO_TICKET_API_URL || 'http://localhost:3000/api';
+    const customerId = localStorage.getItem('user_id'); 
 
+    if (!customerId) return;
     const res = await axios.get(`${baseApi}/customer/${customerId}/tickets`);
     myTickets.value = res.data;
   } catch (error) {
@@ -47,7 +47,7 @@ onMounted(loadMyTickets);
         <i class="pi pi-ticket" style="font-size: 4rem; color: #d1d5db; margin-bottom: 1rem;"></i>
         <h2>Aún no tienes entradas</h2>
         <p>Explora nuestra cartelera y no te pierdas de los mejores eventos.</p>
-        <Button label="Ver Cartelera" class="p-button-primary mt-3" @click="router.push('/catalog')" />
+        <Button label="Ver Cartelera" class="p-button-primary mt-3" @click="router.push('/')" />
       </div>
 
       <div v-else class="tickets-grid">

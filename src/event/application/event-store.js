@@ -9,7 +9,6 @@ export function useEvents() {
     const events = ref([]);
     const form = ref(new Event({}));
 
-    // Variables reactivas para los selectores
     const venues = ref([]);
     const categories = ref([]);
 
@@ -22,7 +21,6 @@ export function useEvents() {
         }
     };
 
-    // Cargar los catálogos desde el backend
     const loadCatalogs = async () => {
         try {
             const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
@@ -47,7 +45,6 @@ export function useEvents() {
         try {
             await api.createEvent(newEvent);
             await loadEvents();
-            // Limpiamos el formulario
             form.value = new Event({});
             alert("¡Evento creado y tickets generados con éxito!");
         } catch (error) {
