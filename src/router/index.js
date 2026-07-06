@@ -13,8 +13,10 @@ import SalesPage from "../sales/presentation/components/sales-page.vue";
 import HomePage from "../customer/presentation/components/home-page.vue";
 import CatalogPage from "../customer/presentation/components/catalog-page.vue";
 import SeatMapPage from '../customer/presentation/components/seat-map.vue';
-import CheckoutPage from '../customer/presentation/components/checkout-page.vue'; // <-- IMPORTACIÓN RECUPERADA
+import CheckoutPage from '../customer/presentation/components/checkout-page.vue'; 
 import MyTicketsPage from '../customer/presentation/components/my-tickets.vue';
+import UserProfile from '../customer/presentation/components/user-profile.vue';
+import EventDetail from '../customer/presentation/components/event-detail.vue'; // <-- NUEVO IMPORT
 
 const routes = [
     // RUTAS PÚBLICAS
@@ -25,9 +27,10 @@ const routes = [
     // RUTAS DEL CLIENTE (Protegidas)
     { path: '/tickets', component: MyTicketsPage, meta: { role: 'cliente' }},
     { path: '/tickets/buy/:id', component: SeatMapPage, meta: { role: 'cliente' }},
-    { path: '/checkout', component: CheckoutPage, meta: { role: 'cliente' }}, // <-- RUTA RECUPERADA
+    { path: '/checkout', component: CheckoutPage, meta: { role: 'cliente' }}, 
+    { path: '/profile/:id', component: UserProfile, meta: { role: 'cliente' }},
+    { path: '/event/:id', component: EventDetail, meta: { role: 'cliente' }}, // <-- NUEVA RUTA
 
-    // RUTAS DEL ADMIN (Protegidas)
     { path: '/admin', component: AdminPage, meta: { role: 'admin' }},
     { path: '/events', component: EventPage, meta: { role: 'admin' }},
     { path: '/admin/events/:id/tickets', component: TicketItem, meta: { role: 'admin' }},
@@ -39,31 +42,26 @@ const router = createRouter({
     routes
 });
 
-// GUARDIA DE NAVEGACIÓN
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 
-    // 1. Si la ruta es pública (Catálogo o Login), dejar pasar
     if (to.path === '/' || to.path === '/login') {
-        // Si ya está logueado y va al login, lo redirigimos a su panel
         if (to.path === '/login' && token) {
-            return role === 'admin' ? next('/admin') : next('/');
+            return role === 'admin' ? '/admin' : '/';
         }
-        return next();
+        return true;
     }
 
-    // 2. Si va a una ruta protegida y NO tiene token -> Al Login
     if (!token) {
-        return next('/login');
+        return '/login';
     }
 
-    // 3. Si tiene token pero el rol no coincide con la ruta -> A su inicio respectivo
     if (to.meta.role && to.meta.role !== role) {
-        return role === 'admin' ? next('/admin') : next('/');
+        return role === 'admin' ? '/admin' : '/';
     }
 
-    next();
+    return true;
 });
 
 export { router };

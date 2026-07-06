@@ -6,7 +6,6 @@ import AdminLayout from "../../../shared/presentation/components/admin-layout.vu
 
 const router = useRouter();
 
-// Variables reactivas para los KPIs
 const totalEvents = ref(0);
 const totalRevenue = ref(0);
 const totalTicketsSold = ref(0);
@@ -17,7 +16,6 @@ const loadDashboardData = async () => {
   try {
     const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
 
-    // Cargar eventos y transacciones en paralelo desde el backend
     const [resEvents, resTx] = await Promise.all([
       axios.get(`${baseApi}/events`),
       axios.get(`${baseApi}/admin/transactions`)
@@ -26,20 +24,17 @@ const loadDashboardData = async () => {
     const events = resEvents.data;
     const transactions = resTx.data;
 
-    // 1. Calcular KPIs Reales
     totalEvents.value = events.length;
     totalTicketsSold.value = transactions.length;
 
-    // Sumar el precio de todos los tickets vendidos
     totalRevenue.value = transactions.reduce((sum, tx) => sum + parseFloat(tx.price), 0);
 
-    // 2. Poblar Actividad Reciente (Últimas 5)
     if (transactions.length > 0) {
       recentActivity.value = transactions.slice(0, 5).map(tx => ({
         user: tx.customer_name || 'Cliente Web',
         action: `${tx.event_title} (Asiento ${tx.row_str}-${tx.seat_number})`,
         time: new Date(tx.action_date).toLocaleDateString(),
-        amount: `S/ ${tx.price}` // Agregamos el monto
+        amount: `S/ ${tx.price}`
       }));
     } else {
       recentActivity.value = [];
@@ -54,7 +49,6 @@ const loadDashboardData = async () => {
 
 onMounted(loadDashboardData);
 
-// Configuración de los accesos rápidos
 const quickActions = [
   { label: 'Eventos', icon: 'pi pi-calendar', route: '/events', class: 'bg-indigo' },
   { label: 'Ventas', icon: 'pi pi-wallet', route: '/sales', class: 'bg-green' }

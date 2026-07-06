@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import ClientLayout from "../../../shared/presentation/components/client-layout.vue";
 
-// Componentes PrimeVue
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import { TicketApi } from "../../../tickets/infrastructure/ticket-api.js";
@@ -18,20 +17,17 @@ const eventDetails = ref({});
 const tickets = ref([]);
 const loading = ref(true);
 
-// Carrito de compras local
 const selectedSeats = ref([]);
-const maxSeats = 4; // Límite de compra por usuario
+const maxSeats = 4;
 
 const loadData = async () => {
   try {
     loading.value = true;
     const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
 
-    // 1. Traer detalles del evento
     const resEvents = await axios.get(`${baseApi}/events`);
     eventDetails.value = resEvents.data.find(e => e.id_event == eventId) || {};
 
-    // 2. Traer todos los asientos
     const resTickets = await api.getEventTickets(eventId);
     tickets.value = resTickets.data;
 
@@ -44,7 +40,6 @@ const loadData = async () => {
 
 onMounted(loadData);
 
-// Agrupamos por fila igual que en el admin
 const seatMap = computed(() => {
   const map = {};
   tickets.value.forEach(t => {
@@ -58,17 +53,14 @@ const seatMap = computed(() => {
   return map;
 });
 
-// Lógica de Selección Interactiva
 const toggleSeat = (seat) => {
-  if (seat.status !== 'AVAILABLE') return; // No se puede clickear lo vendido/reservado
+  if (seat.status !== 'AVAILABLE') return;
 
   const index = selectedSeats.value.findIndex(s => s.id_ticket === seat.id_ticket);
 
   if (index > -1) {
-    // Si ya estaba seleccionado, lo quitamos
     selectedSeats.value.splice(index, 1);
   } else {
-    // Si no está, lo agregamos (respetando el límite)
     if (selectedSeats.value.length < maxSeats) {
       selectedSeats.value.push(seat);
     } else {
@@ -81,7 +73,6 @@ const isSelected = (ticketId) => {
   return selectedSeats.value.some(s => s.id_ticket === ticketId);
 };
 
-// Total a pagar
 const totalAmount = computed(() => {
   return selectedSeats.value.reduce((sum, seat) => sum + parseFloat(seat.price), 0);
 });
@@ -111,7 +102,7 @@ const procederAlPago = () => {
         <div class="map-section">
 
           <div class="event-header">
-            <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-text p-button-plain" @click="router.push('/catalog')" />
+            <Button icon="pi pi-arrow-left" class="p-button-rounded p-button-text p-button-plain" @click="router.push('/')" />
             <div>
               <h1 class="event-title">{{ eventDetails.event_title }}</h1>
               <p class="event-subtitle"><i class="pi pi-map-marker"></i> {{ eventDetails.venue_name }}</p>

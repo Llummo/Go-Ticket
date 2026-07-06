@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import ClientLayout from "../../../shared/presentation/components/client-layout.vue";
 
-// Componentes PrimeVue
 import Card from 'primevue/card';
 import Button from 'primevue/button';
 import Tag from 'primevue/tag';
@@ -13,6 +12,8 @@ const router = useRouter();
 const events = ref([]);
 const loading = ref(true);
 
+const searchQuery = ref('');
+const selectedCategory = ref('Todos');
 // Carrusel
 const currentSlide = ref(0);
 let autoplayInterval = null;
@@ -40,7 +41,7 @@ const stopAutoplay = () => {
 // Data
 const loadEvents = async () => {
   try {
-    const baseApi = import.meta.env.VITE_GO_TICKET_API_URL;
+    const baseApi = import.meta.env.VITE_GO_TICKET_API_URL || 'http://localhost:3000/api';
     const res = await axios.get(`${baseApi}/events`);
     events.value = res.data;
   } catch (error) {
@@ -54,7 +55,7 @@ const irAComprar = (eventId) => {
   if (!localStorage.getItem('token')) {
     router.push('/login');
   } else {
-    router.push(`/tickets/buy/${eventId}`);
+    router.push(`/event/${eventId}`);
   }
 };
 
