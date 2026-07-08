@@ -53,7 +53,7 @@ const irAComprar = (eventId) => {
   if (!token) {
     router.push('/login');
   } else {
-    router.push(`/tickets/buy/${eventId}`);
+    router.push(`/event/${eventId}`);
   }
 };
 </script>
@@ -131,7 +131,7 @@ const irAComprar = (eventId) => {
 
           <template #footer>
             <Button
-                label="Ver Asientos"
+                label="Ver Detalles"
                 icon="pi pi-arrow-right"
                 iconPos="right"
                 class="w-full p-button-primary"
